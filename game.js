@@ -43,12 +43,11 @@ rollDiceBtn.addEventListener("click", function() {
 		roundScore += dice;
 		$("#current-" + activePlayer).text(roundScore);
 	} else {
+		// player has rolled a 1
 		scores[activePlayer] += roundScore;
 		$("#score-" + activePlayer).text(scores[activePlayer]);
 		roundScore = 0;
 		$("#current-" + activePlayer).text(roundScore);
-
-
 
 		if (activePlayer === 0) {
 			
@@ -59,6 +58,10 @@ rollDiceBtn.addEventListener("click", function() {
 		}
 		// or can use ternary operator
 		// activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+		// change active player
+		$(".player-1-panel").toggleClass("active");
+		$(".player-0-panel").toggleClass("active");
+		diceImg.style.display = "none";
 	}
 
 });
