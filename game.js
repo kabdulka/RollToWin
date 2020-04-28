@@ -44,29 +44,42 @@ rollDiceBtn.addEventListener("click", function() {
 		$("#current-" + activePlayer).text(roundScore);
 	} else {
 		// player has rolled a 1
-		scores[activePlayer] += roundScore;
-		$("#score-" + activePlayer).text(scores[activePlayer]);
+		// scores[activePlayer] += roundScore;
+		// $("#score-" + activePlayer).text(scores[activePlayer]);
 		roundScore = 0;
 		$("#current-" + activePlayer).text(roundScore);
-
-		if (activePlayer === 0) {
-			
-			activePlayer = 1;
-		} else {
-			
-			activePlayer = 0;
-		}
-		// or can use ternary operator
-		// activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-		// change active player
-		$(".player-1-panel").toggleClass("active");
-		$(".player-0-panel").toggleClass("active");
-		diceImg.style.display = "none";
+		switchPlayer();
 	}
 
 });
 
 
+// document.querySelector(".btn-hold").addEventListener("click", function() {
+// 	alert("clicked");
+// });
+$(".btn-hold").click(function() {
+	// alert("clicked");
+	scores[activePlayer] += roundScore;
+	$("#score-" + activePlayer).text(scores[activePlayer]);
+	
+	switchPlayer();
+
+});
+
+// changes acive status and toggles active class
+function switchPlayer() {
+
+	if (activePlayer === 0) {
+		activePlayer = 1;
+	} else {
+		activePlayer = 0;
+	}
+
+	$(".player-1-panel").toggleClass("active");
+	$(".player-0-panel").toggleClass("active");
+	// hide the image
+	diceImg.style.display = "none";
+}
 
 
 
