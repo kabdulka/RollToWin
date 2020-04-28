@@ -1,5 +1,8 @@
 
 
+
+
+
 var scores, roundScore, activePlayer;
 
 // scores for players 1 and 2
@@ -7,6 +10,15 @@ scores = [0,0];
 roundScore = 0;
 activePlayer = 0;
 
+
+var $currentPlayer0 = $("#current-0");
+$currentPlayer0.text("0");
+var $currentPlayer1 = $("#current-1");
+$currentPlayer1.text("0");
+var $score0 = $("#score-0");
+$score0.text("0");
+var $score1 = $("#score-1");
+$score1.text("0");
 
 // document.querySelector("#current-" + activePlayer).textContent = dice;
 // document.querySelector("#current-" + activePlayer).innerHTML = "<em>" + dice + "</em>";
@@ -27,6 +39,20 @@ rollDiceBtn.addEventListener("click", function() {
 	diceImg.style.display = "block";
 	document.querySelector("#current-" + activePlayer).textContent = dice;
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
