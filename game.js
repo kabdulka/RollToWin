@@ -7,7 +7,6 @@ initializeGame();
 // document.querySelector("#current-" + activePlayer).textContent = dice;
 // document.querySelector("#current-" + activePlayer).innerHTML = "<em>" + dice + "</em>";
 
-// To hide the dice we can:
 // document.querySelector(".dice").style.visibility = "hidden";
 // or
 // document.querySelector(".dice").style.display = "none";
