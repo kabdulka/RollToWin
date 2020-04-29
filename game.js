@@ -134,13 +134,6 @@ function initializeGame() {
 
 
 
-// check if last dice rolled was a 6 and current is also a 6
-// set game score to input field
-
-
-
-
-
 
 
 
