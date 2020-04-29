@@ -1,6 +1,6 @@
 
 
-var scores, roundScore, activePlayer, gameWon;
+var scores, roundScore, activePlayer, gameWon, finalScore;
 
 initializeGame();
 
@@ -12,20 +12,25 @@ initializeGame();
 // or
 // document.querySelector(".dice").style.display = "none";
 var diceImg = document.getElementsByClassName("dice")[0];
-
+var diceImg2 = document.getElementsByClassName("dice")[1];
 
 var rollDiceBtn = document.getElementsByClassName("btn-roll")[0];
 // anonymous function to display the right dice number
 rollDiceBtn.addEventListener("click", function() {
 
-	if (!gameWon) {
+	if (!gameWon && finalScore !== "") {
 		var dice = Math.floor(Math.random() * 6) + 1;
+		var dice2 = Math.floor(Math.random() * 6) + 1;
 		diceImg.src = "dice-" + dice + ".png";
+		diceImg2.src = "dice-" + dice2 + ".png";
 		diceImg.style.display = "block";
+		diceImg2.style.display = "block";
 		// document.querySelector("#current-" + activePlayer).textContent = dice;
-
-		if (dice !== 1) {
-			roundScore += dice;
+		var bothDiesSix = (dice==6 & dice2==6);
+		var oneDiceIsOne = (dice==1 || dice2==1);
+		var eitherCondition = bothDiesSix || oneDiceIsOne;
+		if (!eitherCondition) {
+			roundScore = roundScore + dice + dice2;
 			$("#current-" + activePlayer).text(roundScore);
 		} else {
 			// player has rolled a 1
@@ -36,22 +41,26 @@ rollDiceBtn.addEventListener("click", function() {
 			switchPlayer();
 		}
 	}
+	if (finalScore === "") {
+		alert("Please enter a numerical max score and click SET SCORE");;
+	}
 });
 
 
 // document.querySelector(".btn-hold").addEventListener("click", function() {
 // 	alert("clicked");
 // });
-$(".btn-hold").click(function(gameState) {
+$(".btn-hold").click(function() {
 	// alert("clicked");
-	if (!gameWon) {
+	if (!gameWon && finalScore !== "") {
 		scores[activePlayer] += roundScore;
 		$("#score-" + activePlayer).text(scores[activePlayer]);
 
-		if (scores[activePlayer] >= 10) {
+		if (scores[activePlayer] >= (finalScore)) {
 			// player has won
 			$("#name-" + activePlayer).text("winner");
-			diceImg.style.display = "none";
+			// diceImg.style.display = "none";
+			$(".dice").css("display", "none");
 			$(".player-"+activePlayer+"-panel").addClass("winner");
 			$(".player-"+activePlayer+"-panel").toggleClass("active");
 			gameWon = true;
@@ -59,11 +68,15 @@ $(".btn-hold").click(function(gameState) {
 			switchPlayer();	
 		}
 	}
+	if (finalScore === "") {
+		alert("Please enter a numerical max score and click SET SCORE");
+	}
 });
 
 // changes acive status and toggles active class
 function switchPlayer() {
 
+	roundScore = 0;
 	if (activePlayer === 0) {
 		activePlayer = 1;
 	} else {
@@ -73,11 +86,20 @@ function switchPlayer() {
 	$(".player-1-panel").toggleClass("active");
 	$(".player-0-panel").toggleClass("active");
 	// hide the image
-	diceImg.style.display = "none";
+	// diceImg.style.display = "none";
+	$(".dice").css("display", "none");
 }
 
 $(".btn-new").click(initializeGame);
 
+$("#set-score").click( function() {
+	// alert(typeof($("#max-score").val()));
+	finalScore = $("#max-score").val();
+	alert("You've set a final score of " + finalScore);
+	if (finalScore === "") {
+		alert("Please enter a numerical max score and click SET SCORE");
+	}
+});
 
 function initializeGame() {
 	scores = [0,0];
@@ -106,11 +128,14 @@ function initializeGame() {
 	$(".player-0-panel").addClass("active");
 	$(".dice").css("display", "none");
 
+	$("#max-score").val("");
+	finalScore = "";
 }
 
 
 
-
+// check if last dice rolled was a 6 and current is also a 6
+// set game score to input field
 
 
 
